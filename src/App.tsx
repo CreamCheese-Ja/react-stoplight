@@ -1,24 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import Button from "@mui/material/Button";
+
+type User = {
+  id: number;
+  name: string;
+  email: string;
+};
 
 function App() {
+  const [users, setUsers] = useState<User[]>([]);
+
+  const fetchUsers = async () => {
+    const res = await fetch("http://127.0.0.1:3100/users");
+    const data: User[] = await res.json();
+    console.log(data);
+    setUsers(data);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Button variant="contained" onClick={fetchUsers}>
+        Get All
+      </Button>
+      <ul>
+        {users.map((user, index) => (
+          <li key={index}>
+            <h3>{user.name}</h3>
+            <p>email: {user.email}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
