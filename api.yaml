@@ -1,8 +1,8 @@
 openapi: 3.1.0
 x-stoplight:
-  id: e9tyqjh6dp266
+  id: 0
 info:
-  title: test
+  title: testaaa
   version: "1.0"
 servers:
   - url: "http://localhost:3000"
